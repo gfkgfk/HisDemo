@@ -1,7 +1,7 @@
 package com.kent.hisdemo.service.role;
 
 import com.kent.hisdemo.entity.role.Role;
-import com.kent.hisdemo.mapper.role.RoleMapper;
+import com.kent.hisdemo.dao.read.role.RoleReadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,12 @@ import java.util.List;
 public class RoleServiceImp implements RoleService {
 
     @Autowired
-    RoleMapper roleMapper;
+    RoleReadMapper roleReadMapper;
 
 
     @Override
     public List<Role> getAllRoles() {
-        return roleMapper.getAllRoles();
+        return roleReadMapper.getAllRoles();
     }
 
 

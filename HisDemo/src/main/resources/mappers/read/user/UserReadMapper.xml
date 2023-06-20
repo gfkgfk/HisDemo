@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.kent.hisdemo.mapper.user.UserMapper">
+<mapper namespace="com.kent.hisdemo.dao.read.user.UserReadMapper">
     <insert id="addUser">
         INSERT INTO `console_user` (`id`, `user_name`, `password`, `phone_num`, `gender`, `role`)
         VALUES (#{id}, #{userName}, #{password}, #{phoneNum}, #{gender}, #{role});
@@ -10,20 +10,12 @@
         FROM `console_user`
         where id = #{id};
     </select>
-    <update id="updateUser">
-        UPDATE `console_user`
-        SET `user_name`=#{userName},
-            `password`=#{password},
-            `phone_num`=#{phoneNum},
-            `gender`=#{gender},
-            `role`=#{role}
-        WHERE `id` = #{id};
-    </update>
-    <delete id="deleteUser">
-        DELETE
+
+    <select id="getUserById" resultType="com.kent.hisdemo.entity.user.User">
+        SELECT *
         FROM `console_user`
-        WHERE `id` = #{id};
-    </delete>
+        where id = #{id};
+    </select>
 
     <select id="getUserByNameAndPwd" resultType="com.kent.hisdemo.entity.user.User">
         SELECT *
@@ -37,9 +29,5 @@
         FROM `console_user`
         where `user_name` = #{userName};
     </select>
-    <insert id="register">
-        INSERT INTO `console_user` (`user_name`, `password`, `phone_num`, `gender`)
-        VALUES (#{userName}, #{password}, #{phoneNum}, #{gender});
-    </insert>
 
 </mapper>

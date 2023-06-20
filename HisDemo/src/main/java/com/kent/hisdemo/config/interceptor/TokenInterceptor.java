@@ -5,8 +5,8 @@ import com.kent.hisdemo.common.Constants;
 import com.kent.hisdemo.common.ServiceResultEnum;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.entity.user.UserToken;
-import com.kent.hisdemo.mapper.user.UserMapper;
-import com.kent.hisdemo.mapper.user.UserTokenMapper;
+import com.kent.hisdemo.dao.read.user.UserReadMapper;
+import com.kent.hisdemo.dao.read.user.UserTokenReadMapper;
 import com.kent.hisdemo.utils.ResultGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +25,9 @@ public class TokenInterceptor implements HandlerInterceptor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    UserTokenMapper userTokenMapper;
+    UserTokenReadMapper userTokenReadMapper;
     @Autowired
-    UserMapper userMapper;
+    UserReadMapper userReadMapper;
 
 
 
@@ -53,7 +53,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         //token不存在或token过期
-        UserToken userToken = userTokenMapper.getUserTokenByToken(headerToken);
+        UserToken userToken = userTokenReadMapper.getUserTokenByToken(headerToken);
         if (userToken == null || userToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
 //            PanelException.fail(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult());
             falseResult(response, ResultGenerator.genFailResult(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult()));
@@ -61,7 +61,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         //不存在对应的用户
-        User user = userMapper.getUserById(userToken.getUserId());
+        User user = userReadMapper.getUserById(userToken.getUserId());
         if (null == user) {
 //            PanelException.fail(ServiceResultEnum.USER_NULL_ERROR.getResult());
             falseResult(response, ResultGenerator.genFailResult(ServiceResultEnum.USER_NULL_ERROR.getResult()));
@@ -74,6 +74,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             falseResult(response, ResultGenerator.genFailResult(ServiceResultEnum.USER_NULL_ERROR.getResult()));
             return false;
         }
+        
         //将user放到request的attribute中
         request.setAttribute(Constants.REQUEST_USER_DATA,user);
         return HandlerInterceptor.super.preHandle(request, response, handler);

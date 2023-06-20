@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.kent.hisdemo.mapper.user.UserTokenMapper">
-    <select id="getUserTokenByUserId" resultType="com.kent.hisdemo.entity.user.UserToken">
-        SELECT *
-        FROM `console_user_token`
-        where user_id = #{id};
-    </select>
+<mapper namespace="com.kent.hisdemo.dao.write.user.UserTokenWriteMapper">
 
     <insert id="addUserToken">
         INSERT INTO `console_user_token` (`user_id`, `token`, `update_time`, `expire_time`)

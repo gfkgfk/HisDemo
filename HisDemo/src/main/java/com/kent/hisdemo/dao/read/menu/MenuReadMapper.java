@@ -1,4 +1,4 @@
-package com.kent.hisdemo.mapper.menu;
+package com.kent.hisdemo.dao.read.menu;
 
 import com.kent.hisdemo.entity.menu.Menu;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 @Mapper
-public interface MenuMapper {
+public interface MenuReadMapper {
     public List<Menu> getMenuByMenuParentId(int id);
 
 

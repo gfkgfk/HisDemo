@@ -2,7 +2,7 @@ package com.kent.hisdemo.service.menu;
 
 
 import com.kent.hisdemo.entity.menu.Menu;
-import com.kent.hisdemo.mapper.menu.MenuMapper;
+import com.kent.hisdemo.dao.read.menu.MenuReadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +15,19 @@ import java.util.List;
 public class MenuServiceImp implements MenuService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    MenuMapper menuMapper;
+    MenuReadMapper menuReadMapper;
 
     public List<Menu> getMenuByMenuParentId(int id) {
-        return menuMapper.getMenuByMenuParentId(id);
+        return menuReadMapper.getMenuByMenuParentId(id);
     }
 
     public List<Menu> getAllMenus() {
-        return menuMapper.getAllMenus();
+        return menuReadMapper.getAllMenus();
     }
 
     @Override
     public List<Long> getMenuIdByRole(int roleId) {
-        return menuMapper.getMenuIdByRole(roleId);
+        return menuReadMapper.getMenuIdByRole(roleId);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MenuServiceImp implements MenuService {
 
     @Override
     public Menu getMenuById(Long id) {
-        return menuMapper.getMenuById(id);
+        return menuReadMapper.getMenuById(id);
     }
 
 

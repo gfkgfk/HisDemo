@@ -1,10 +1,12 @@
 package com.kent.hisdemo.service.login;
 
 import com.kent.hisdemo.common.ServiceResultEnum;
+import com.kent.hisdemo.dao.write.user.UserTokenWriteMapper;
+import com.kent.hisdemo.dao.write.user.UserWriteMapper;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.entity.user.UserToken;
-import com.kent.hisdemo.mapper.user.UserMapper;
-import com.kent.hisdemo.mapper.user.UserTokenMapper;
+import com.kent.hisdemo.dao.read.user.UserReadMapper;
+import com.kent.hisdemo.dao.read.user.UserTokenReadMapper;
 import com.kent.hisdemo.utils.MD5Util;
 import com.kent.hisdemo.utils.TokenGenerator;
 import com.kent.hisdemo.utils.beancopy.BeanCopyUtil;
@@ -19,33 +21,37 @@ import java.util.Date;
 @Service("loginService")
 public class LoginServiceImp implements LoginService {
     @Autowired
-    UserMapper userMapper;
-
+    UserReadMapper userReadMapper;
     @Autowired
-    UserTokenMapper userTokenMapper;
+    UserTokenReadMapper userTokenReadMapper;
+    @Autowired
+    UserWriteMapper userWriteMapper;
+    @Autowired
+    UserTokenWriteMapper userTokenWriteMapper;
+
 
 
     public int registeredUser(User user) {
-        return userMapper.addUser(user);
+        return userWriteMapper.addUser(user);
     }
 
     public User getUser(String id) {
-        return userMapper.getUser(id);
+        return userReadMapper.getUser(id);
     }
 
     public int updateUser(User user) {
 
-        return userMapper.updateUser(user);
+        return userWriteMapper.updateUser(user);
 
     }
 
     public int unregisteredUser(String id) {
-        return userMapper.deleteUser(id);
+        return userWriteMapper.deleteUser(id);
     }
 
     @Override
     public User login(User user) {
-        return userMapper.getUserByNameAndPwd(user);
+        return userReadMapper.getUserByNameAndPwd(user);
     }
 
 
@@ -54,7 +60,7 @@ public class LoginServiceImp implements LoginService {
         User user = new User();
         loginParam.setPassword(MD5Util.MD5Encode(loginParam.getPassword(), "UTF-8"));
         BeanCopyUtil.copyProperties(loginParam, user);
-        user = userMapper.getUserByNameAndPwd(user);
+        user = userReadMapper.getUserByNameAndPwd(user);
 
         if (user != null) {
             if (user.getLockedFlag() == 1) {
@@ -65,7 +71,7 @@ public class LoginServiceImp implements LoginService {
 
             //登录后即执行修改token的操作
             String token = TokenGenerator.getNewToken(System.currentTimeMillis() + "", user.getId());
-            UserToken userToken = userTokenMapper.getUserTokenByUserId(user.getId());
+            UserToken userToken = userTokenReadMapper.getUserTokenByUserId(user.getId());
             //当前时间
             Date now = new Date();
             //过期时间
@@ -78,7 +84,7 @@ public class LoginServiceImp implements LoginService {
                 userToken.setUpdateTime(now);
                 userToken.setExpireTime(expireTime);
                 //新增一条token数据
-                if (userTokenMapper.addUserToken(userToken) > 0) {
+                if (userTokenWriteMapper.addUserToken(userToken) > 0) {
                     //新增成功后返回
                     LoginVO loginVO = new LoginVO();
                     BeanCopyUtil.copyProperties(user, loginVO);
@@ -90,7 +96,7 @@ public class LoginServiceImp implements LoginService {
                 userToken.setUpdateTime(now);
                 userToken.setExpireTime(expireTime);
                 //更新
-                if (userTokenMapper.updateUserToken(userToken) > 0) {
+                if (userTokenWriteMapper.updateUserToken(userToken) > 0) {
                     //修改成功后返回
                     LoginVO loginVO = new LoginVO();
                     BeanCopyUtil.copyProperties(user, loginVO);
@@ -107,14 +113,14 @@ public class LoginServiceImp implements LoginService {
 
     @Override
     public String register(RegisterParam registerParam) {
-        if (userMapper.selectByLoginName(registerParam.getUserName()) != null) {
+        if (userReadMapper.selectByLoginName(registerParam.getUserName()) != null) {
             return ServiceResultEnum.SAME_LOGIN_NAME_EXIST.getResult();
         }
         User user = new User();
         BeanCopyUtil.copyProperties(registerParam, user);
         String passwordMD5 = MD5Util.MD5Encode(registerParam.getPassword(), "UTF-8");
         user.setPassword(passwordMD5);
-        if (userMapper.register(user) > 0) {
+        if (userWriteMapper.register(user) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
