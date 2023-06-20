@@ -1,0 +1,13 @@
+package com.kent.hisdemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HisDemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(HisDemoApplication.class, args);
+    }
+
+}

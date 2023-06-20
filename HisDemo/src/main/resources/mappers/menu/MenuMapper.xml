@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kent.hisdemo.mapper.menu.MenuMapper">
+
+    <resultMap id="getMenuByMenuParentIdRm" type="com.kent.hisdemo.entity.menu.Menu">
+        <result property="id" column="id"></result>
+        <collection property="subMenus" select="getMenuByMenuParentId" column="id"
+                    ofType="com.kent.hisdemo.entity.menu.Menu">
+        </collection>
+    </resultMap>
+    <select id="getMenuByMenuParentId" resultMap="getMenuByMenuParentIdRm">
+        SELECT *
+        FROM `console_menu`
+        where parent_id = #{parentId}
+    </select>
+
+    <select id="getAllMenus" resultType="com.kent.hisdemo.entity.menu.Menu">
+        SELECT *
+        FROM `console_menu`
+    </select>
+
+    <select id="getMenuIdByRole" resultType="java.lang.Long">
+        SELECT crm.mid
+        FROM console_user cr
+        LEFT JOIN console_role_menu crm ON cr.role = crm.rid WHERE cr.role = #{roleId}
+    </select>
+
+
+    <resultMap id="getMenuByIdRm" type="com.kent.hisdemo.entity.menu.Menu">
+        <result property="id" column="id"></result>
+        <collection property="subMenus" select="getMenuByMenuParentId" column="id"
+                    ofType="com.kent.hisdemo.entity.menu.Menu">
+        </collection>
+    </resultMap>
+    <select id="getMenuById" resultMap="getMenuByIdRm">
+        SELECT *
+        FROM `console_menu`
+        WHERE id = #{id}
+    </select>
+
+
+</mapper>
