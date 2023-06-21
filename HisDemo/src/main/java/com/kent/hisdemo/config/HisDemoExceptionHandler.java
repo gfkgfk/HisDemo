@@ -1,7 +1,7 @@
 package com.kent.hisdemo.config;
 
-import com.kent.hisdemo.common.Constants;
-import com.kent.hisdemo.common.HisDemoException;
+import com.kent.hisdemo.constant.Constants;
+import com.kent.hisdemo.common.exception.HisDemoException2;
 import com.kent.hisdemo.common.ServiceResultEnum;
 import com.kent.hisdemo.vo.Result;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class HisDemoExceptionHandler {
         Result result = new Result();
         result.setResultCode(Constants.INTERNAL_ERROR);
         //区分是否为自定义异常
-        if (e instanceof HisDemoException) {
+        if (e instanceof HisDemoException2) {
             result.setMessage(e.getMessage());
             if (e.getMessage().equals(ServiceResultEnum.NOT_LOGIN_ERROR.getResult()) || e.getMessage().equals(ServiceResultEnum.TOKEN_EXPIRE_ERROR.getResult())) {
                 result.setResultCode(Constants.REQUESTED_RANGE_NOT_SATISFIABLE);

@@ -1,5 +1,6 @@
 package com.kent.hisdemo.controller.login;
 
+import com.kent.hisdemo.aop.InterfaceLogger;
 import com.kent.hisdemo.common.ServiceResultEnum;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.login.LoginService;
@@ -45,8 +46,8 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    @CrossOrigin
     @ApiOperation(value = "登录接口", notes = "返回token")
+    @InterfaceLogger(module = "登录", description = "登录接口")
     public Result<String> login(@Valid LoginParam loginParam) {
-        System.out.println("登录接口");
         LoginVO loginVO = loginService.login(loginParam);
         Result<String> result;
         if (null == loginVO) {

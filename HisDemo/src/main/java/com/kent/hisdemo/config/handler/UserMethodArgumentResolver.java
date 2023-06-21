@@ -1,6 +1,6 @@
 package com.kent.hisdemo.config.handler;
 
-import com.kent.hisdemo.common.Constants;
+import com.kent.hisdemo.constant.Constants;
 import com.kent.hisdemo.config.annotation.CurrentUser;
 import com.kent.hisdemo.entity.user.User;
 import org.slf4j.Logger;

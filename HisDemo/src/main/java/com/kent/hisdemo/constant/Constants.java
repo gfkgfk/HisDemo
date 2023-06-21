@@ -1,4 +1,4 @@
-package com.kent.hisdemo.common;
+package com.kent.hisdemo.constant;
 
 public class Constants {
     public static final int SUCCESS = 200;

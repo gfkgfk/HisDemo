@@ -1,7 +1,7 @@
 package com.kent.hisdemo.config.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kent.hisdemo.common.Constants;
+import com.kent.hisdemo.constant.Constants;
 import com.kent.hisdemo.common.ServiceResultEnum;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.entity.user.UserToken;
@@ -74,7 +74,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             falseResult(response, ResultGenerator.genFailResult(ServiceResultEnum.USER_NULL_ERROR.getResult()));
             return false;
         }
-        
+
         //将user放到request的attribute中
         request.setAttribute(Constants.REQUEST_USER_DATA,user);
         return HandlerInterceptor.super.preHandle(request, response, handler);

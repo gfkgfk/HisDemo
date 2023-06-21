@@ -1,6 +1,6 @@
 package com.kent.hisdemo.utils;
 
-import com.kent.hisdemo.common.Constants;
+import com.kent.hisdemo.constant.Constants;
 import com.kent.hisdemo.vo.Result;
 import org.springframework.util.StringUtils;
 
