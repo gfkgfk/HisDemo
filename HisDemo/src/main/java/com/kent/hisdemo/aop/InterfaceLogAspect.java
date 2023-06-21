@@ -38,7 +38,6 @@ public class InterfaceLogAspect {
     @Around("@annotation(InterfaceLogger)")
     public Object methodAround(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-
         HttpServletRequest request = null;
         if (requestAttributes != null) {
             request = requestAttributes.getRequest();
