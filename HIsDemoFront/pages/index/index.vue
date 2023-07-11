@@ -2,7 +2,7 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
+			<text class="title" @click="test">{{title}}</text>
 		</view>
 	</view>
 </template>
@@ -18,7 +18,12 @@
 
 		},
 		methods: {
-
+			test(){
+				console.log(getApp().globalData.BASE_URL);
+				this.$api.test().then(res=>{
+					console.log('结果:',res);
+				})
+			}
 		}
 	}
 </script>

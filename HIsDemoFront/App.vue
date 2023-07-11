@@ -1,5 +1,8 @@
 <script>
 	export default {
+		globalData:{  
+			  BASE_URL:'http://localhost:8001/',//网络请求url地址
+		}, 
 		onLaunch: function() {
 			console.log('App Launch')
 		},

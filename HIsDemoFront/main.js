@@ -1,5 +1,12 @@
 import App from './App'
 
+import Api from "@/common/service-api/index.js";
+Vue.prototype.$api = Api;
+
+
+
+
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
