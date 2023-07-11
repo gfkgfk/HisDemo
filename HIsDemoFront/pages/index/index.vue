@@ -4,6 +4,7 @@
 		<view class="text-area">
 			<text class="title" @click="test">{{title}}</text>
 		</view>
+	
 	</view>
 </template>
 
