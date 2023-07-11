@@ -1,14 +1,36 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title" @click="test">{{title}}</text>
-			
+		<view class="space"></view>
+		<view class="login_title">
+			<view>
+				用户登录
+			</view>
+			<view class="line"></view>
 		</view>
-		<view>
-			<text class="title" @click="navTo">跳转</text>
+		<view class="login_name">
+			<uni-easyinput :inputBorder="false" v-model="userName" placeholder="请输入账号"></uni-easyinput>
+			<view class="gray_line_2 "></view>
 		</view>
-	
+		<view class="space"></view>
+		<view class="login_pwd">
+			<view class="pwd_line">
+				<view class="pwd">
+					<uni-easyinput width="10rpx" :inputBorder="false" v-model="userPwd"
+						placeholder="请输入密码"></uni-easyinput>
+				</view>
+				<view class="vline_2" style="height: 40rpx;"></view>
+				<view class="forget" @click="forget()"> 忘记密码</view>
+			</view>
+
+			<view class="gray_line_2 "></view>
+		</view>
+		<view class="login_button">
+			<button type="primary" plain="true" @click="login()">登录</button>
+		</view>
+
+		<view class="foot">
+			<view class="foot_content">xxxxxxx</view>
+		</view>
 	</view>
 </template>
 
@@ -16,53 +38,106 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				userName: '',
+				userPwd: '',
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-			test(){
+			forget() {
+				console.log('忘记密码');
+			},
+			test() {
 				console.log(getApp().globalData.BASE_URL);
-				this.$api.test().then(res=>{
-					console.log('结果:',res);
+				this.$api.test().then(res => {
+					console.log('结果:', res);
 				})
 			},
-				
-			navTo(){
+			login() {
+
+			},
+			navTo() {
 				uni.navigateTo({
-					url:'/pages/index/test/test'
+					url: '/pages/index/test/test'
 				})
 			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.content {
+		height: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 	}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
+	.space {
+		height: 100rpx;
+	}
+
+	.login_title {
+		padding: 100rpx;
+		font-size: $uni-font-size-title;
+		font-weight: 600;
+	}
+
+	.login_name {
+		padding: 0rpx 100rpx 0rpx 100rpx;
+	}
+
+	.login_pwd {
+		padding: 0rpx 100rpx 0rpx 100rpx;
+
+		.pwd_line {
+			display: flex;
+			align-items: center;
+
+			.pwd {
+				width: 400rpx;
+			}
+		}
+
+		.forget {
+			padding: 0rpx 20rpx 0rpx 20rpx;
+			font-size: 16rpx;
+			color: $uni-text-color-grey;
+		}
+
+		.forget:active {
+			color: $uni-color-primary;
+		}
+	}
+
+	.line {
+		width: 150rpx;
+		margin-top: 10rpx;
+		height: 4rpx;
+		background: linear-gradient(to right, $uni-color-primary, white);
+	}
+
+	.login_button {
 		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
+		padding: 0rpx 100rpx 0rpx 100rpx;
 	}
 
-	.text-area {
+	.foot {
+		width: 750rpx;
+		position: fixed;
+		bottom: 0rpx;
+		padding-bottom: 50rpx;
 		display: flex;
 		justify-content: center;
-	}
 
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		.foot_content {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			font-size: $uni-font-size-base;
+			color: $uni-text-color-grey;
+		}
 	}
 </style>

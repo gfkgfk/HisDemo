@@ -20,6 +20,14 @@
 	page {
 		width: 750rpx;
 		margin: 0 auto;
-		height: 100%;
+	}
+
+	.gray_line_2{
+		height: 2rpx;
+		background-color: gray;
+	}
+	.vline_2{
+		width: 2rpx;
+		background-color: gray;
 	}
 </style>
