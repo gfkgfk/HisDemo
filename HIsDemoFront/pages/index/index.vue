@@ -3,6 +3,10 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title" @click="test">{{title}}</text>
+			
+		</view>
+		<view>
+			<text class="title" @click="navTo">跳转</text>
 		</view>
 	
 	</view>
@@ -23,6 +27,12 @@
 				console.log(getApp().globalData.BASE_URL);
 				this.$api.test().then(res=>{
 					console.log('结果:',res);
+				})
+			},
+				
+			navTo(){
+				uni.navigateTo({
+					url:'/pages/index/test/test'
 				})
 			}
 		}

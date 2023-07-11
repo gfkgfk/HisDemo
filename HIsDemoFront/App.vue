@@ -15,6 +15,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
+	page {
+		width: 750rpx;
+		margin: 0 auto;
+		height: 100%;
+	}
 </style>
