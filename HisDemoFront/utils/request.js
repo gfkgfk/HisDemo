@@ -1,6 +1,8 @@
-
 const tokenKey = 'token'
 import * as storage from '@/utils/storage.js'
+import {
+	fail
+} from 'assert';
 
 
 export const request = (args) => {
@@ -15,7 +17,7 @@ export const request = (args) => {
 		// "Content-Type": "application/json;charset=utf-8"
 	};
 	header = args['header'] || defaultHeader
-	
+
 	header = Object.assign(defaultHeader, header);
 	header[tokenKey] = storage.getToken(tokenKey)
 
@@ -28,16 +30,17 @@ export const request = (args) => {
 	}
 
 	let promise = new Promise(function(resolve, reject) {
-		uni.request(httpDefaultOpts).then(
-			(res) => {
+		uni.request({
+			...httpDefaultOpts,
+			success: function(res) {
 				// TODO:Token过期重新获取
 				resolve(res)
-			}
-		).catch(
-			(error) => {
+			},
+			fail: function(error) {
 				reject(error)
-			}
-		)
+			},
+			complete: function(res) {}
+		})
 	})
 	return promise
 };

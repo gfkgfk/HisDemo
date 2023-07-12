@@ -46,7 +46,6 @@
 			}
 		},
 		onLoad() {
-			console.log(storage);
 		},
 		methods: {
 			forget() {
@@ -69,13 +68,14 @@
 					password:this.userPwd,
 					
 				}).then(res=>{
-					console.log(res);
 					if(res.statusCode==200 && res.data.resultCode==200){
 						storage.setToken(res.data.data.token);
 						this.navTo('/pages/main/main')
 					}else{
-						
+						utils.showToast('用户名密码错误')
 					}
+				}).catch(error=>{
+					utils.showError('网络请求错误')
 				})
 
 			},
