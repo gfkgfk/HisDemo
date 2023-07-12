@@ -35,6 +35,8 @@
 </template>
 
 <script>
+	import * as storage from '@/utils/storage.js'
+	import * as utils from '@/utils/utils.js'
 	export default {
 		data() {
 			return {
@@ -44,7 +46,7 @@
 			}
 		},
 		onLoad() {
-
+			console.log(storage);
 		},
 		methods: {
 			forget() {
@@ -57,11 +59,29 @@
 				})
 			},
 			login() {
+				if(!this.userName || !this.userPwd){
+					utils.showToast('用户名密码不正确')
+					return
+				}
+				
+				this.$api.login({
+					userName: this.userName,
+					password:this.userPwd,
+					
+				}).then(res=>{
+					console.log(res);
+					if(res.statusCode==200 && res.data.resultCode==200){
+						storage.setToken(res.data.data.token);
+						this.navTo('/pages/main/main')
+					}else{
+						
+					}
+				})
 
 			},
-			navTo() {
-				uni.navigateTo({
-					url: '/pages/index/test/test'
+			navTo(url) {
+				uni.switchTab({
+					url: url
 				})
 			}
 		}
@@ -121,7 +141,7 @@
 
 	.login_button {
 		margin-top: 200rpx;
-		padding: 0rpx 100rpx 0rpx 100rpx;
+		padding: 0rpx 150rpx 0rpx 150rpx;
 	}
 
 	.foot {
