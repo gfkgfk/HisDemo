@@ -9,10 +9,9 @@
 			// BASE_URL: 'http://localhost:8082/', //网络请求url地址
 			BASE_URL: 'http://93.179.125.238:8082/', //网络请求url地址
 		},
-		onLaunch: function() {
-			console.log('App Launch')
+		onLaunch: function(options) {
 			// 对路由进行统一拦截，实现路由导航守卫 router.beforeEach 功能
-			routingIntercept()
+			routingIntercept(options)
 		},
 		onShow: function() {
 			console.log('App Show')

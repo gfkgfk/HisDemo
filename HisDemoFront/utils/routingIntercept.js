@@ -12,8 +12,16 @@ const whiteList = [
 	// { pattern: /^\/pages\/login\/*/ }
 ]
 
-export default async function() {
+export default async function(options) {
+	
 	const list = ['navigateTo', 'redirectTo', 'reLaunch', 'switchTab']
+	//首次进入应用
+	console.log(options);
+	if(options){
+		//TODO 处理首次进入是否拦截
+	}
+	
+	
 	// 用遍历的方式分别为,uni.navigateTo,uni.redirectTo,uni.reLaunch,uni.switchTab这4个路由方法添加拦截器
 	list.forEach(item => {
 		uni.addInterceptor(item, {
