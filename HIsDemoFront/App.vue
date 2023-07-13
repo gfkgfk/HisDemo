@@ -6,7 +6,8 @@
 	import routingIntercept from '@/utils/routingIntercept.js'
 	export default {
 		globalData: {
-			BASE_URL: 'http://localhost:8082/', //网络请求url地址
+			// BASE_URL: 'http://localhost:8082/', //网络请求url地址
+			BASE_URL: 'http://93.179.125.238:8082/', //网络请求url地址
 		},
 		onLaunch: function() {
 			console.log('App Launch')

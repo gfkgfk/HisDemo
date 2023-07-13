@@ -4,7 +4,7 @@
 			:duration="duration">
 			<swiper-item v-for="(item,index) in imgArray" :key="index">
 				<view>
-					<image :src="item.src" style="width: 100%" alt="" srcset=""/>
+					<image :src="item.src" style="width: 100%" alt="" srcset="" />
 				</view>
 			</swiper-item>
 		</swiper>
@@ -14,7 +14,7 @@
 			</uni-card>
 		</uni-section>
 		<uni-section title="自定义列数" type="line" padding>
-			<uni-grid :column="4" :highlight="true" >
+			<uni-grid :column="4" :highlight="true">
 				<uni-grid-item v-for="(item, index) in list" :index="index" :key="index">
 					<view class="grid-item-box" style="background-color: #fff;" @click="clickGrid(item)">
 						<uni-icons :type="item.type" :size="30" color="#777" />
@@ -71,13 +71,16 @@
 				]
 			}
 		},
+		mounted() {
+		},
 		methods: {
 			cardClick() {
 				utils.showToast('功能暂未开放')
 			},
 			change(e) {
 				let {
-					index,text
+					index,
+					text
 				} = e.detail
 				console.log(e.detail);
 				uni.showToast({
@@ -85,7 +88,7 @@
 					icon: 'none'
 				})
 			},
-			clickGrid(item){
+			clickGrid(item) {
 				utils.showToast(item.text)
 			}
 		}
