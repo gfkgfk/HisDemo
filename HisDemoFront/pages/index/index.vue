@@ -29,7 +29,7 @@
 		</view>
 
 		<view class="foot">
-			<view class="foot_content">xxxxxxx</view>
+			<view class="foot_content">医疗信息采集系统</view>
 		</view>
 	</view>
 </template>

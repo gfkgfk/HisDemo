@@ -24,6 +24,9 @@
 
 <style lang="scss">
 	/*每个页面公共css */
+	body{
+		// height: 98%;
+	}
 	page {
 		width: 750rpx;
 		margin: 0 auto;

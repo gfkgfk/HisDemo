@@ -34,7 +34,7 @@
             "path" : "pages/measure/measure",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }
             
