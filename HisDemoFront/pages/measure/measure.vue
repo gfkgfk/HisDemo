@@ -20,10 +20,18 @@
 				<view>{{high}} / {{low}}</view>
 
 			</view>
-			<button class="measure-button" type="primary" :loading="loading" @click="start()">{{loading?'测量中':'开始测量'}}</button>
+			<button class="measure-button" type="primary" :loading="loading"
+				@click="start()">{{loading?'测量中':'开始测量'}}</button>
 		</view>
 		<view v-if="active == 2">
-			历史数据
+			<view>
+				<uni-card v-for="i in 4" :is-shadow="false" is-full>
+					<view>
+						<text class="uni-h6">测量设备:</text>
+						<text class="uni-h6">测量结果:</text>
+					</view>
+				</uni-card>
+			</view>
 		</view>
 	</view>
 </template>
@@ -91,10 +99,10 @@
 					this.uploaddata()
 				}
 			},
-			uploaddata(){
+			uploaddata() {
 				utils.showToast('上传数据完成')
 			}
-			
+
 
 		}
 	}
