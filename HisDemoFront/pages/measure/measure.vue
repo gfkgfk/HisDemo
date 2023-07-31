@@ -104,7 +104,7 @@
 					deviceType:this.selectDevice,
 					measureValue:this.high+'/'+this.low
 				}).then(res=>{
-					if(res.statusCode==200 && res.data.resultCode==200){
+					if(res.statusCode==200){
 						utils.showToast('上传数据完成')
 					}else{
 						utils.showToast('网络错误')

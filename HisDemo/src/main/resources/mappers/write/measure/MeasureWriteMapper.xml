@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kent.hisdemo.dao.write.measure.MeasureWriteMapper">
+
+
+    <insert id="addMeasureData">
+        INSERT INTO `console_measure` (`type`, `value`, `create_time`, `user_id`)
+        VALUES (#{type}, #{value}, #{createTime}, #{userId});
+    </insert>
+
+    <update id="updateMeasureData">
+
+    </update>
+
+
+</mapper>

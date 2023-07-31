@@ -7,4 +7,9 @@
         where user_id = #{id};
     </select>
 
+    <select id="getUserTokenByToken" resultType="com.kent.hisdemo.entity.user.UserToken">
+        SELECT *
+        FROM `console_user_token`
+        WHERE token = #{token};
+    </select>
 </mapper>
