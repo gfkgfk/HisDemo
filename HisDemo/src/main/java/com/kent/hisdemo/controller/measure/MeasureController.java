@@ -3,6 +3,7 @@ package com.kent.hisdemo.controller.measure;
 
 import com.kent.hisdemo.common.response.JsonResult;
 import com.kent.hisdemo.common.response.SldResponse;
+import com.kent.hisdemo.config.annotation.CurrentUser;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.measure.MeasureService;
 import com.kent.hisdemo.service.measure.MeasureServiceImp;
@@ -31,8 +32,8 @@ public class MeasureController {
 
 
     @RequestMapping(value = "/uploadMeasureData", method = RequestMethod.POST)
-    public JsonResult uploadMeasureData(HttpServletRequest request,MeasureParam param) {
-        User user = (User) request.getAttribute("user");
+    public JsonResult uploadMeasureData(HttpServletRequest request,MeasureParam param,@CurrentUser User user) {
+//        User user = (User) request.getAttribute("user");
         logger.debug(param.toString());
         logger.debug(request.toString());
         List<MeasureVO> list = new ArrayList<>();
