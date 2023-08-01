@@ -11,3 +11,11 @@ export const uploadMeasureData = (data) => {
 	});
 };
 
+export const getMeasureHistory = (data) => {
+	return request({
+		url: getApp().globalData.BASE_URL + "api/v1/measure/getMeasureHistory",
+		method: "POST",
+		data: data,
+	});
+};
+

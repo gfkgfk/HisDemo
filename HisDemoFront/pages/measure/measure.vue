@@ -22,17 +22,39 @@
 			</view>
 			<button class="measure-button" type="primary" :loading="loading"
 				@click="start()">{{loading?'测量中':'开始测量'}}</button>
+			<button class="manual-measure-button" type="primary" :loading="loading"
+				@click="inputDialogToggle()">{{loading?'测量中':'人工录入'}}</button>
 		</view>
 		<view v-if="active == 2">
 			<view>
-				<uni-card v-for="i in 4" :is-shadow="false" is-full>
+				<uni-card v-for="(item, index) in hisData" :key="index" :is-shadow="false" is-full>
 					<view>
-						<text class="uni-h6">测量设备:</text>
-						<text class="uni-h6">测量结果:</text>
+						<div class="uni-h6">测量设备:{{item.deviceType==1?'血压计':'未知'}}</div>
+						<div class="uni-h6">测量结果:{{item.measureValue?item.measureValue:'--'}}</div>
 					</view>
 				</uni-card>
 			</view>
 		</view>
+
+
+
+		<!-- Dialog -->
+		<view>
+			
+			<uni-popup ref="inputDialog" type="dialog">
+				<uni-popup-dialog ref="inputClose" mode="input" title="人工录入" @confirm="dialogInputConfirm">
+					<view class="dialog-manual" >
+						<view style="width: 150rpx;">录入值:</view>
+						<view class="dialog-manual-val">
+							<uni-easyinput v-model="currentHigh" :clearable=false focus/>
+							<span class="dialog-spreader">/</span>
+							<uni-easyinput v-model="currentLow" :clearable=false focus/>
+						</view>
+					</view>
+				</uni-popup-dialog>
+			</uni-popup>
+		</view>
+		
 	</view>
 </template>
 
@@ -51,12 +73,18 @@
 				}],
 				loading: false,
 				highFinish: false,
-				lowFinish: false
+				lowFinish: false,
+				hisData: [],
+				currentHigh: 0,
+				currentLow: 0,
 			}
 		},
 		methods: {
 			changeActive(select) {
 				this.active = select
+				if (this.active == 2) {
+					this.getHistoryData()
+				}
 			},
 			changeDevice() {
 				console.log(this.selectDevice);
@@ -93,26 +121,47 @@
 				}, 60)
 
 			},
+			dialogInputConfirm() {
+				if (!this.currentHigh || !this.currentLow || this.currentHigh <= 0 || this.currentLow <= 0) {
+					utils.showToast('请输入值')
+					return
+				}
+				this.uploaddata(this.selectDevice, this.currentHigh + '/' + this.currentLow)
+			},
+			inputDialogToggle() {
+				this.$refs.inputDialog.open()
+			},
 			checkFinish() {
 				if (this.lowFinish && this.highFinish) {
 					this.loading = false
-					this.uploaddata()
+					this.uploaddata(this.selectDevice, this.high + '/' + this.low)
 				}
 			},
-			uploaddata() {
+			uploaddata(deviceType, measureValue) {
 				this.$api.uploadMeasureData({
-					deviceType:this.selectDevice,
-					measureValue:this.high+'/'+this.low
-				}).then(res=>{
-					if(res.statusCode==200){
+					deviceType: deviceType,
+					measureValue: measureValue
+				}).then(res => {
+					if (res.statusCode == 200) {
 						utils.showToast('上传数据完成')
-					}else{
+					} else {
 						utils.showToast('网络错误')
 					}
-				}).catch(error=>{
+				}).catch(error => {
 					utils.showError('网络请求错误')
 				})
-				
+			},
+			getHistoryData() {
+				this.$api.getMeasureHistory({}).then(res => {
+					if (res.statusCode == 200) {
+						this.hisData = res.data.data
+					} else {
+						utils.showToast('网络错误')
+					}
+				}).catch(error => {
+					utils.showError('网络请求错误')
+				})
+
 			}
 
 
@@ -151,6 +200,32 @@
 
 	.measure-button {
 		width: 70%;
+	}
+
+	.manual-measure-button {
+		width: 70%;
+		margin-top: 50rpx;
+	}
+
+
+	.dialog-manual {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+
+		.dialog-manual-val {
+			width: 250rpx;
+			margin-left: 10rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 5rpx;
+
+			.dialog-spreader {
+				padding: 15rpx;
+			}
+		}
 	}
 
 	.card {

@@ -1,10 +1,12 @@
 package com.kent.hisdemo.service.measure;
 
 
+import com.kent.hisdemo.dao.read.measure.MeasureReadMapper;
 import com.kent.hisdemo.dao.read.menu.MenuReadMapper;
 import com.kent.hisdemo.dao.write.measure.MeasureWriteMapper;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.menu.Menu;
+import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.menu.MenuService;
 import com.kent.hisdemo.vo.param.measure.MeasureParam;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ public class MeasureServiceImp implements MeasureService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     MeasureWriteMapper measureWriteMapper;
+    @Autowired
+    MeasureReadMapper measureReadMapper;
 
 
     @Override
@@ -31,5 +35,13 @@ public class MeasureServiceImp implements MeasureService {
         measure.setUserId(userId);
         measure.setCreateTime(new Date());
         return measureWriteMapper.addMeasureData(measure);
+    }
+
+
+
+    @Override
+    public List<Measure> getMeasureHistoryDataByUser(User user) {
+        List<Measure> list = measureReadMapper.getAllMeasureDataByUser(user);
+        return list;
     }
 }

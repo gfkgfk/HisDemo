@@ -4,9 +4,9 @@ package com.kent.hisdemo.controller.measure;
 import com.kent.hisdemo.common.response.JsonResult;
 import com.kent.hisdemo.common.response.SldResponse;
 import com.kent.hisdemo.config.annotation.CurrentUser;
+import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.measure.MeasureService;
-import com.kent.hisdemo.service.measure.MeasureServiceImp;
 import com.kent.hisdemo.vo.param.measure.MeasureParam;
 import com.kent.hisdemo.vo.vo.measure.MeasureVO;
 import io.swagger.annotations.Api;
@@ -34,12 +34,23 @@ public class MeasureController {
     @RequestMapping(value = "/uploadMeasureData", method = RequestMethod.POST)
     public JsonResult uploadMeasureData(HttpServletRequest request,MeasureParam param,@CurrentUser User user) {
 //        User user = (User) request.getAttribute("user");
-        logger.debug(param.toString());
-        logger.debug(request.toString());
-        List<MeasureVO> list = new ArrayList<>();
-        list.add(new MeasureVO());
         measureService.uploadMeasureData(param,user.getId());
         return SldResponse.success("操作成功");
+    }
+
+    @RequestMapping(value = "/getMeasureHistory", method = RequestMethod.POST)
+    public JsonResult<List<MeasureVO>> getMeasureHistoryData(HttpServletRequest request, MeasureParam param, @CurrentUser User user) {
+//        User user = (User) request.getAttribute("user");
+        List<Measure> list =  measureService.getMeasureHistoryDataByUser(user);
+        List<MeasureVO> result = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            MeasureVO measureVO = new MeasureVO();
+            measureVO.setMeasureValue(list.get(i).getValue());
+            measureVO.setDeviceType(list.get(i).getType());
+            result.add(measureVO);
+        }
+        System.out.println(result);
+        return SldResponse.success(result);
     }
 
 }
