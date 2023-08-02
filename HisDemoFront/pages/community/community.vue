@@ -1,35 +1,31 @@
 <template>
 	<view>
-		<p>JQuery测试点击消失</p>
-		<button @click="show">重置</button>
+		<uni-section title="社区公告" type="line">
+			<uni-card v-for="(item,index) in announcementArr" :key="index" :title="item.title" extra="点击阅读">
+				<text class="content">item.announcement</text>
+			</uni-card>
+		</uni-section>
 	</view>
 </template>
 
 <script>
-	//#ifdef H5
-	import $ from '@/static/js/jquery-3.7.0.min.js'
-	//#endif  
 	export default {
 		data() {
 			return {
-
+				announcementArr: []
 			}
 		},
-		mounted() {
-			$(document).ready(function() {
-				$("p").click(function() {
-					$(this).hide();
-				});
-			});
-		},
-		methods: {
-			show() {
-				$("p").show()
-			}
-		}
+		mounted() {},
+		methods: {}
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+	.content {
+		white-space: normal;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		-webkit-line-clamp: 2;
+	}
 </style>

@@ -13,7 +13,7 @@
 				<text class="uni-body">这是一段测试信息;这是一段测试信息;这是一段测试信息;这是一段测试信息;这是一段测试信息</text>
 			</uni-card>
 		</uni-section>
-		<uni-section title="自定义列数" type="line" padding>
+		<uni-section title="快速入口" type="line" padding>
 			<uni-grid :column="4" :highlight="true">
 				<uni-grid-item v-for="(item, index) in list" :index="index" :key="index">
 					<view class="grid-item-box" style="background-color: #fff;" @click="clickGrid(item)">
@@ -44,7 +44,7 @@
 					},
 				],
 				list: [{
-						text: '测试 1',
+						text: '我的',
 						type: 'contact',
 
 					},
@@ -89,6 +89,8 @@
 				})
 			},
 			clickGrid(item) {
+				let sumMoney='0.10'
+				let freightFeeDynamic = '0.05'
 				utils.showToast(item.text)
 			}
 		}

@@ -9,7 +9,7 @@
 		{
 			"path": "pages/community/community",
 			"style": {
-				"navigationBarTitleText": "社区",
+				"navigationStyle": "custom",
 				"enablePullDownRefresh": false
 			}
 
@@ -25,7 +25,7 @@
             "path" : "pages/user/user",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }
             
@@ -35,6 +35,15 @@
             "style" :                                                                                    
             {
                 "navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/announcement/announcement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公告",
                 "enablePullDownRefresh": false
             }
             

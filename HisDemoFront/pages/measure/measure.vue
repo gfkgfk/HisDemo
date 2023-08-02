@@ -59,7 +59,7 @@
 </template>
 
 <script>
-	import * as utils from '@/utils/utils.js'
+	import * as storage from '@/utils/storage.js'
 	export default {
 		data() {
 			return {
@@ -77,6 +77,13 @@
 				hisData: [],
 				currentHigh: 0,
 				currentLow: 0,
+			}
+		},
+		onShow() {
+			let index = storage.getItem('measureActiveIndex')
+			if(index){
+				this.changeActive(index)
+				storage.removeItem('measureActiveIndex')
 			}
 		},
 		methods: {

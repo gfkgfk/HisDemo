@@ -16,3 +16,7 @@ export const getItem = (key) => {
 export const setItem = (key, val) => {
 	uni.setStorageSync(key, val)
 }
+
+export const removeItem = (key) => {
+	uni.removeStorageSync(key)
+}
