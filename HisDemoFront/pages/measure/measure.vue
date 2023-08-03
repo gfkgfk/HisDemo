@@ -22,8 +22,8 @@
 			</view>
 			<button class="measure-button" type="primary" :loading="loading"
 				@click="start()">{{loading?'测量中':'开始测量'}}</button>
-			<button class="manual-measure-button" type="primary" :loading="loading"
-				@click="inputDialogToggle()">{{loading?'测量中':'人工录入'}}</button>
+			<button class="manual-measure-button" type="primary" :disabled="loading"
+				@click="inputDialogToggle()">人工录入</button>
 		</view>
 		<view v-if="active == 2">
 			<view>
@@ -60,6 +60,7 @@
 
 <script>
 	import * as storage from '@/utils/storage.js'
+	import * as utils from '@/utils/utils.js'
 	export default {
 		data() {
 			return {

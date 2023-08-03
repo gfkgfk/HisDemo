@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kent.hisdemo.dao.read.announcement.AnnouncementReadMapper">
+    <select id="getAllAnnouncement" resultType="com.kent.hisdemo.entity.announcement.Announcement">
+        SELECT * FROM `console_announcement`
+    </select>
+
+    <select id="getLatestAnnouncement" resultType="com.kent.hisdemo.entity.announcement.Announcement">
+        SELECT * FROM console_announcement ORDER BY create_time DESC LIMIT 1;
+    </select>
+
+
+    <select id="getAnnouncementById" resultType="com.kent.hisdemo.entity.announcement.Announcement">
+        SELECT * FROM console_announcement WHERE id = #{id}
+    </select>
+</mapper>

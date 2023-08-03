@@ -8,6 +8,10 @@ import com.kent.hisdemo.vo.param.measure.MeasureParam;
 import java.util.List;
 
 public interface AnnouncementService {
-    public List<Announcement> getMeasureHistoryDataByUser(User user);
+    public List<Announcement> getAllAnnouncement(User user);
+
+    public Announcement getLatestAnnouncement(User user);
+
+    public Announcement getAnnouncementById(Long id);
 
 }

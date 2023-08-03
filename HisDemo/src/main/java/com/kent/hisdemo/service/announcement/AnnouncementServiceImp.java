@@ -1,6 +1,7 @@
 package com.kent.hisdemo.service.announcement;
 
 
+import com.kent.hisdemo.dao.read.announcement.AnnouncementReadMapper;
 import com.kent.hisdemo.dao.read.measure.MeasureReadMapper;
 import com.kent.hisdemo.dao.write.measure.MeasureWriteMapper;
 import com.kent.hisdemo.entity.announcement.Announcement;
@@ -15,17 +16,25 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Service("measureService")
+@Service("announcementService")
 public class AnnouncementServiceImp implements AnnouncementService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    MeasureWriteMapper measureWriteMapper;
-    @Autowired
-    MeasureReadMapper measureReadMapper;
+    AnnouncementReadMapper announcementReadMapper;
 
 
     @Override
-    public List<Announcement> getMeasureHistoryDataByUser(User user) {
-        return null;
+    public List<Announcement> getAllAnnouncement(User user) {
+        return announcementReadMapper.getAllAnnouncement();
+    }
+
+    @Override
+    public Announcement getLatestAnnouncement(User user) {
+        return announcementReadMapper.getLatestAnnouncement();
+    }
+
+    @Override
+    public Announcement getAnnouncementById(Long id) {
+        return announcementReadMapper.getAnnouncementById(id);
     }
 }

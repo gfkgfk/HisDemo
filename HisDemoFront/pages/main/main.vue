@@ -9,8 +9,8 @@
 			</swiper-item>
 		</swiper>
 		<uni-section title="最新热点" type="line">
-			<uni-card title="公告" sub-title="测试信息" extra="点击阅读" @click="cardClick">
-				<text class="uni-body">这是一段测试信息;这是一段测试信息;这是一段测试信息;这是一段测试信息;这是一段测试信息</text>
+			<uni-card title="公告" :sub-title="announcement.title?announcement.title:'------'" extra="点击阅读" @click="cardClick">
+				<text class="uni-body">{{announcement.content?announcement.content:'-----------'}}</text>
 			</uni-card>
 		</uni-section>
 		<uni-section title="快速入口" type="line" padding>
@@ -32,6 +32,7 @@
 	export default {
 		data() {
 			return {
+				announcement:{},
 				indicatorDots: true,
 				duration: 500,
 				interval: 2000,
@@ -72,10 +73,25 @@
 			}
 		},
 		mounted() {
+			this.getLatestAnnouncement()
 		},
 		methods: {
+			getLatestAnnouncement(){
+				this.$api.getLatestAnnouncement().then(res=>{
+					if (res.statusCode == 200 && res.data.state == 200) {
+						this.announcement = res.data.data
+					} else {
+						utils.showToast('网络错误')
+					}
+				}).catch(error => {
+						utils.showError('网络请求错误')
+				})
+			},
 			cardClick() {
-				utils.showToast('功能暂未开放')
+				if(!this.announcement){
+					return
+				}
+				this.navTo('/pages/announcement/announcement',this.announcement.id)
 			},
 			change(e) {
 				let {
@@ -92,6 +108,12 @@
 				let sumMoney='0.10'
 				let freightFeeDynamic = '0.05'
 				utils.showToast(item.text)
+			},
+			navTo(url,param){
+				url = `${url}?id=${param}`;
+				uni.navigateTo({
+					url:url,
+				})
 			}
 		}
 	}
