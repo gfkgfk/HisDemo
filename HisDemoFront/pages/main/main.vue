@@ -29,6 +29,7 @@
 
 <script>
 	import * as utils from '@/utils/utils'
+	import * as storage from '@/utils/storage.js'
 	export default {
 		data() {
 			return {
@@ -50,23 +51,19 @@
 
 					},
 					{
-						text: '测试 2',
-						type: 'wallet'
-					},
-					{
-						text: '测试 3',
+						text: '测量',
 						type: 'settings'
 					},
 					{
-						text: '测试 4',
+						text: '社区',
 						type: 'notification',
 					},
 					{
-						text: '测试 5',
+						text: '历史数据',
 						type: 'compose'
 					},
 					{
-						text: '测试 6',
+						text: '测试',
 						type: 'vip'
 					}
 				]
@@ -91,7 +88,7 @@
 				if(!this.announcement){
 					return
 				}
-				this.navTo('/pages/announcement/announcement',this.announcement.id)
+				this.navToAnnouncement('/pages/announcement/announcement',this.announcement.id)
 			},
 			change(e) {
 				let {
@@ -103,13 +100,54 @@
 					title: `${text}`,
 					icon: 'none'
 				})
+				
+			},
+			toMeasure() {
+				uni.switchTab({
+					url: '/pages/measure/measure'
+				})
+			},
+			toHistory() {
+				storage.setItem('measureActiveIndex',2)
+				uni.switchTab({
+					url: '/pages/measure/measure'
+				})
+			},
+			toCommunity() {
+				uni.switchTab({
+					url: '/pages/community/community'
+				})
+			},
+			toUser() {
+				uni.switchTab({
+					url: '/pages/user/user'
+				})
+			},
+			navTo(url) {
+				uni.navigateTo({
+					url: url
+				});
 			},
 			clickGrid(item) {
-				let sumMoney='0.10'
-				let freightFeeDynamic = '0.05'
-				utils.showToast(item.text)
+				switch (item.text){
+					case '我的':
+						this.toUser()
+						break;
+					case '测量':
+						this.toMeasure()
+						break;
+					case '社区':
+						this.toCommunity()
+						break;
+					case '历史数据':
+						this.toHistory()
+						break;
+					default:
+						utils.showToast('功能暂未开放')
+						break;
+				}
 			},
-			navTo(url,param){
+			navToAnnouncement(url,param){
 				url = `${url}?id=${param}`;
 				uni.navigateTo({
 					url:url,
