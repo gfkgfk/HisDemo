@@ -4,6 +4,7 @@ package com.kent.hisdemo.service.measure;
 import com.kent.hisdemo.dao.read.measure.MeasureReadMapper;
 import com.kent.hisdemo.dao.read.menu.MenuReadMapper;
 import com.kent.hisdemo.dao.write.measure.MeasureWriteMapper;
+import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.menu.Menu;
 import com.kent.hisdemo.entity.user.User;
@@ -42,6 +43,12 @@ public class MeasureServiceImp implements MeasureService {
     @Override
     public List<Measure> getMeasureHistoryDataByUser(User user) {
         List<Measure> list = measureReadMapper.getAllMeasureDataByUser(user);
+        return list;
+    }
+
+    @Override
+    public List<MeasureDetailDTO> getMeasureDetailsList() {
+        List<MeasureDetailDTO> list = measureReadMapper.getMeasureDetailsList();
         return list;
     }
 }

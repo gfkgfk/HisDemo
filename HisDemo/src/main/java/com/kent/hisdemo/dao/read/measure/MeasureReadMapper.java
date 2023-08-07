@@ -1,5 +1,6 @@
 package com.kent.hisdemo.dao.read.measure;
 
+import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,5 +11,8 @@ import java.util.List;
 @Mapper
 public interface MeasureReadMapper {
     public List<Measure> getAllMeasureDataByUser(User user);
+
+    public List<MeasureDetailDTO> getMeasureDetailsList();
+
 
 }

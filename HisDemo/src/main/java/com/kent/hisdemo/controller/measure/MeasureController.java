@@ -4,10 +4,12 @@ package com.kent.hisdemo.controller.measure;
 import com.kent.hisdemo.common.response.JsonResult;
 import com.kent.hisdemo.common.response.SldResponse;
 import com.kent.hisdemo.config.annotation.CurrentUser;
+import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.measure.MeasureService;
 import com.kent.hisdemo.vo.param.measure.MeasureParam;
+import com.kent.hisdemo.vo.vo.measure.MeasureDetailVO;
 import com.kent.hisdemo.vo.vo.measure.MeasureVO;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -50,6 +52,22 @@ public class MeasureController {
             result.add(measureVO);
         }
         System.out.println(result);
+        return SldResponse.success(result);
+    }
+
+    @RequestMapping(value = "/getMeasureDetailsList", method = RequestMethod.POST)
+    public JsonResult<List<MeasureDetailVO>> getMeasureDetailsList(HttpServletRequest request, MeasureParam param, @CurrentUser User user) {
+        List<MeasureDetailDTO> list =  measureService.getMeasureDetailsList();
+        List<MeasureDetailVO> result = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            MeasureDetailVO measureDetailVO = new MeasureDetailVO();
+            measureDetailVO.setUserName(list.get(i).getUserName());
+            measureDetailVO.setDeviceType(list.get(i).getDeviceType());
+            measureDetailVO.setMeasureValue(list.get(i).getMeasureValue());
+            measureDetailVO.setCreateTime(list.get(i).getCreateTime());
+            result.add(measureDetailVO);
+        }
         return SldResponse.success(result);
     }
 

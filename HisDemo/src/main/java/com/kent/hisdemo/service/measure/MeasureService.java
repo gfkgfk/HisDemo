@@ -1,5 +1,6 @@
 package com.kent.hisdemo.service.measure;
 
+import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.menu.Menu;
 import com.kent.hisdemo.entity.user.User;
@@ -11,5 +12,7 @@ public interface MeasureService {
     public int uploadMeasureData(MeasureParam measureParam,Long userId);
 
     public List<Measure> getMeasureHistoryDataByUser(User user);
+
+    public List<MeasureDetailDTO> getMeasureDetailsList();
 
 }

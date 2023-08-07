@@ -10,8 +10,25 @@
         <result property="userId" column="user_id"/>
     </resultMap>
 
+    <resultMap id="measureDetailResultMap" type="com.kent.hisdemo.dto.measure.MeasureDetailDTO">
+        <result property="deviceType" column="type"/>
+        <result property="measureValue" column="value"/>
+        <result property="createTime" column="create_time"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
     <select id="getAllMeasureDataByUser" resultMap="resultMap">
-        SELECT * FROM `console_measure` WHERE user_id = #{id}
+        SELECT *
+        FROM `console_measure`
+        WHERE user_id = #{id}
+    </select>
+
+
+    <select id="getMeasureDetailsList" resultMap="measureDetailResultMap">
+        SELECT cm.type, cm.value,cm.create_time,cu.user_name
+        FROM `console_measure` cm,
+             `console_user` cu
+        WHERE cm.user_id = cu.id
     </select>
 
 
