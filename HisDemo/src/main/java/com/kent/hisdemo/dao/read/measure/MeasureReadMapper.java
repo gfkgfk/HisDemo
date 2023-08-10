@@ -14,5 +14,7 @@ public interface MeasureReadMapper {
 
     public List<MeasureDetailDTO> getMeasureDetailsList();
 
+    public Measure getMeasureDetailById(Long id);
+
 
 }

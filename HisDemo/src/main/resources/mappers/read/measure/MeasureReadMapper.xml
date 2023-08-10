@@ -11,6 +11,7 @@
     </resultMap>
 
     <resultMap id="measureDetailResultMap" type="com.kent.hisdemo.dto.measure.MeasureDetailDTO">
+        <result property="id" column="id"/>
         <result property="deviceType" column="type"/>
         <result property="measureValue" column="value"/>
         <result property="createTime" column="create_time"/>
@@ -25,10 +26,17 @@
 
 
     <select id="getMeasureDetailsList" resultMap="measureDetailResultMap">
-        SELECT cm.type, cm.value,cm.create_time,cu.user_name
+        SELECT cm.id, cm.type, cm.value,cm.create_time,cu.user_name
         FROM `console_measure` cm,
              `console_user` cu
         WHERE cm.user_id = cu.id
+    </select>
+
+
+    <select id="getMeasureDetailById" resultMap="resultMap">
+        SELECT *
+        FROM `console_measure`
+        WHERE id=#{id}
     </select>
 
 

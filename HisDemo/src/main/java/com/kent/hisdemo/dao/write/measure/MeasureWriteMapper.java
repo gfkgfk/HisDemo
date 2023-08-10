@@ -11,4 +11,8 @@ public interface MeasureWriteMapper {
     public int updateMeasureData(Measure measure);
 
     public int addMeasureData(Measure measure);
+
+    public int updateMeasureDetail(Measure measure);
+
+
 }

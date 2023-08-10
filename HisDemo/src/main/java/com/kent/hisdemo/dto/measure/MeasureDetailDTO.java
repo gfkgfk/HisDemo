@@ -10,7 +10,8 @@ import java.util.Date;
 public class MeasureDetailDTO implements Serializable {
 
     private static final long serialVersionUID = -9037762282979274154L;
-
+    @ApiModelProperty("测量记录ID")
+    Long id;
     @ApiModelProperty("测量设备类型")
     private String deviceType;
     @ApiModelProperty("测量值")

@@ -15,4 +15,7 @@ public interface MeasureService {
 
     public List<MeasureDetailDTO> getMeasureDetailsList();
 
+    public Measure getMeasureDetailById(Long id);
+
+    public int updateMeasureDetail(Measure measure);
 }

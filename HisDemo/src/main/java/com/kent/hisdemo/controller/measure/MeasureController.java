@@ -62,6 +62,7 @@ public class MeasureController {
 
         for (int i = 0; i < list.size(); i++) {
             MeasureDetailVO measureDetailVO = new MeasureDetailVO();
+            measureDetailVO.setId(list.get(i).getId());
             measureDetailVO.setUserName(list.get(i).getUserName());
             measureDetailVO.setDeviceType(list.get(i).getDeviceType());
             measureDetailVO.setMeasureValue(list.get(i).getMeasureValue());

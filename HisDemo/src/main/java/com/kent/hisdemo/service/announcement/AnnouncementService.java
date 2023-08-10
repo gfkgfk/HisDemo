@@ -1,6 +1,7 @@
 package com.kent.hisdemo.service.announcement;
 
 import com.kent.hisdemo.entity.announcement.Announcement;
+import com.kent.hisdemo.entity.feedback.Feedback;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.vo.param.measure.MeasureParam;
@@ -13,5 +14,4 @@ public interface AnnouncementService {
     public Announcement getLatestAnnouncement(User user);
 
     public Announcement getAnnouncementById(Long id);
-
 }

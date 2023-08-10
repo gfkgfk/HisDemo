@@ -19,4 +19,6 @@ public class Measure implements Serializable {
     private Date createTime;
     @ApiModelProperty("被测量人用户id")
     private Long userId;
+    @ApiModelProperty("反馈信息ID")
+    private Long feedbackId;
 }

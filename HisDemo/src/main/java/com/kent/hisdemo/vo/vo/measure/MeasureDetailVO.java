@@ -10,7 +10,8 @@ import java.util.Date;
 public class MeasureDetailVO implements Serializable {
     private static final long serialVersionUID = 1984081587299329766L;
 
-
+    @ApiModelProperty("测量记录ID")
+    Long id;
     @ApiModelProperty("测量设备类型")
     private String deviceType;
     @ApiModelProperty("测量值")

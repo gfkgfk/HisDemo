@@ -8,9 +8,19 @@
         VALUES (#{type}, #{value}, #{createTime}, #{userId});
     </insert>
 
-    <update id="updateMeasureData">
-
+    <update id="updateMeasureFeedBack">
+        UPDATE `console_measure`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="record.feedbackId != null">
+                `feedback_id` = #{record.feedbackId},
+            </if>
+        </trim>
+        WHERE `id` = #{id}
     </update>
 
-
+    <update id="updateMeasureDetail">
+        UPDATE `console_measure`
+        SET `type`=#{type},`value`=#{value},`user_id`=#{userId},`feedback_id`=#{feedbackId}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

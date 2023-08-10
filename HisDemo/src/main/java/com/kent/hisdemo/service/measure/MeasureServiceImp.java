@@ -29,7 +29,7 @@ public class MeasureServiceImp implements MeasureService {
 
 
     @Override
-    public int uploadMeasureData(MeasureParam measureParam ,Long userId) {
+    public int uploadMeasureData(MeasureParam measureParam, Long userId) {
         Measure measure = new Measure();
         measure.setType(measureParam.getDeviceType());
         measure.setValue(measureParam.getMeasureValue());
@@ -37,7 +37,6 @@ public class MeasureServiceImp implements MeasureService {
         measure.setCreateTime(new Date());
         return measureWriteMapper.addMeasureData(measure);
     }
-
 
 
     @Override
@@ -50,5 +49,16 @@ public class MeasureServiceImp implements MeasureService {
     public List<MeasureDetailDTO> getMeasureDetailsList() {
         List<MeasureDetailDTO> list = measureReadMapper.getMeasureDetailsList();
         return list;
+    }
+
+
+    @Override
+    public Measure getMeasureDetailById(Long id) {
+        return measureReadMapper.getMeasureDetailById(id);
+    }
+
+    @Override
+    public int updateMeasureDetail(Measure measure) {
+        return measureWriteMapper.updateMeasureDetail(measure);
     }
 }

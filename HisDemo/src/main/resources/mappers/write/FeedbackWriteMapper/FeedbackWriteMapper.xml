@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kent.hisdemo.dao.write.feedback.FeedbackWriteMapper">
+
+
+    <insert id="saveFeedback" useGeneratedKeys="true" keyProperty="id" parameterType="com.kent.hisdemo.entity.feedback.Feedback">
+        INSERT INTO `console_feedback` (`content`, `user_id`)
+        VALUES (#{content}, #{userId});
+    </insert>
+
+    <update id="updateFeedback">
+        UPDATE `console_feedback`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="content != null">
+                `content` = #{content},
+            </if>
+<!--            <if test="record.user_id != null">-->
+<!--                `user_id` = #{record.user_id},-->
+<!--            </if>-->
+        </trim>
+        WHERE `id` = #{id}
+<!--        <include refid="whereCondition" />-->
+
+
+    </update>
+
+
+    <!--操作条件-->
+    <sql id="whereCondition">
+        <if test="example != null">
+            <trim prefix="WHERE" prefixOverrides="AND|OR">
+                <if test="example.specIdNotEquals != null">
+                    AND `spec_id` != #{example.specIdNotEquals}
+                </if>
+                <if test="example.specIdIn != null">
+                    AND `spec_id` in (${example.specIdIn})
+                </if>
+                <if test="example.specName != null">
+                    AND `spec_name` = #{example.specName}
+                </if>
+            </trim>
+        </if>
+    </sql>
+
+
+
+
+
+</mapper>
