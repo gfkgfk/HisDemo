@@ -23,4 +23,10 @@
         SET `type`=#{type},`value`=#{value},`user_id`=#{userId},`feedback_id`=#{feedbackId}
         WHERE `id` = #{id}
     </update>
+
+    <update id="deleteMeasureDetailById">
+        UPDATE `console_measure`
+        SET `is_deleted`= 1
+        WHERE `id` = #{id}
+    </update>
 </mapper>

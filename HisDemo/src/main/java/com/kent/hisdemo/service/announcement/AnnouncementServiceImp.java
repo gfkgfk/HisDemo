@@ -3,6 +3,7 @@ package com.kent.hisdemo.service.announcement;
 
 import com.kent.hisdemo.dao.read.announcement.AnnouncementReadMapper;
 import com.kent.hisdemo.dao.read.measure.MeasureReadMapper;
+import com.kent.hisdemo.dao.write.announcement.AnnouncementWriteMapper;
 import com.kent.hisdemo.dao.write.measure.MeasureWriteMapper;
 import com.kent.hisdemo.entity.announcement.Announcement;
 import com.kent.hisdemo.entity.measure.Measure;
@@ -21,6 +22,8 @@ public class AnnouncementServiceImp implements AnnouncementService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     AnnouncementReadMapper announcementReadMapper;
+    @Autowired
+    AnnouncementWriteMapper announcementWriteMapper;
 
 
     @Override
@@ -36,5 +39,14 @@ public class AnnouncementServiceImp implements AnnouncementService {
     @Override
     public Announcement getAnnouncementById(Long id) {
         return announcementReadMapper.getAnnouncementById(id);
+    }
+
+    @Override
+    public int saveAnnouncement(Announcement announcement) {
+        return announcementWriteMapper.saveAnnouncement(announcement);
+    }
+    @Override
+    public int deleteAnnouncementById(Long id) {
+        return announcementWriteMapper.deleteAnnouncementById(id);
     }
 }

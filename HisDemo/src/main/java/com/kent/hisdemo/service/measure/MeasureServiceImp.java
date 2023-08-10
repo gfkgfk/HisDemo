@@ -61,4 +61,9 @@ public class MeasureServiceImp implements MeasureService {
     public int updateMeasureDetail(Measure measure) {
         return measureWriteMapper.updateMeasureDetail(measure);
     }
+
+    @Override
+    public int deleteMeasureDetailById(Long id) {
+        return measureWriteMapper.deleteMeasureDetailById(id);
+    }
 }

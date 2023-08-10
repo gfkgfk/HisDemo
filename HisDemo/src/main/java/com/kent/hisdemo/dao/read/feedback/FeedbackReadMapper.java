@@ -1,5 +1,6 @@
 package com.kent.hisdemo.dao.read.feedback;
 
+import com.kent.hisdemo.dto.feedback.FeedbackDTO;
 import com.kent.hisdemo.entity.announcement.Announcement;
 import com.kent.hisdemo.entity.feedback.Feedback;
 import com.kent.hisdemo.entity.user.User;
@@ -15,4 +16,6 @@ public interface FeedbackReadMapper {
 
     public Feedback getFeedbackById(Long id);
     public int getCount(Long id);
+
+    public List<FeedbackDTO> getAllFeedBackIncludeName();
 }

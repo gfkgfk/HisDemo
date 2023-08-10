@@ -13,4 +13,7 @@ public interface FeedbackWriteMapper {
     public int saveFeedback(Feedback feedback);
 
     public int updateFeedback(Feedback feedback);
+
+    public int deleteFeedbackById(Long id);
+
 }

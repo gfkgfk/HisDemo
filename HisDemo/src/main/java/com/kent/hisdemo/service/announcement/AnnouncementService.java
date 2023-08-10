@@ -14,4 +14,8 @@ public interface AnnouncementService {
     public Announcement getLatestAnnouncement(User user);
 
     public Announcement getAnnouncementById(Long id);
+
+
+    public int saveAnnouncement(Announcement announcement);
+    public int deleteAnnouncementById(Long id);
 }

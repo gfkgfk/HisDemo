@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,6 +35,22 @@ public class CommunityController {
     @Autowired
     AnnouncementService announcementService;
 
+
+    @RequestMapping(value = "/saveAnnouncement", method = RequestMethod.POST)
+    public JsonResult saveAnnouncement(HttpServletRequest request, @CurrentUser User user,String title,String content) {
+        Announcement announcement = new Announcement();
+        announcement.setTitle(title);
+        announcement.setContent(content);
+        announcement.setCreateTime(new Date());
+        announcementService.saveAnnouncement(announcement);
+        return SldResponse.success("操作成功");
+    }
+
+    @RequestMapping(value = "/deleteAnnouncement", method = RequestMethod.POST)
+    public JsonResult deleteAnnouncement(HttpServletRequest request, @CurrentUser User user,Long id) {
+        announcementService.deleteAnnouncementById(id);
+        return SldResponse.success("操作成功");
+    }
 
     @RequestMapping(value = "/getAllAnnouncement", method = RequestMethod.POST)
     public JsonResult<List<AnnouncementVO>> getAllAnnouncement(HttpServletRequest request, @CurrentUser User user) {

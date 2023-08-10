@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.kent.hisdemo.dao.read.feedback.FeedbackReadMapper">
+    <resultMap id="resultMap" type="com.kent.hisdemo.dto.feedback.FeedbackDTO">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
     <select id="getAllFeedBack" resultType="com.kent.hisdemo.entity.feedback.Feedback">
         SELECT *
         FROM `console_feedback`
+        WHERE `is_deleted` = 0
     </select>
 
     <select id="getFeedbackById" resultType="com.kent.hisdemo.entity.feedback.Feedback">
         SELECT *
         FROM `console_feedback`
-        WHERE id = #{id}
+        WHERE `is_deleted` = 0
+        AND id = #{id}
     </select>
 
     <select id="getCount" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM `console_feedback`
-        WHERE id = #{id}
+        WHERE `is_deleted` = 0
+        AND id = #{id}
+    </select>
+
+    <select id="getAllFeedBackIncludeName" resultMap="resultMap">
+        SELECT cf.id,cf.content,cu.user_name
+        FROM `console_feedback` cf,`console_user` cu WHERE cf.user_id = cu.id AND cf.`is_deleted` = 0
     </select>
 </mapper>

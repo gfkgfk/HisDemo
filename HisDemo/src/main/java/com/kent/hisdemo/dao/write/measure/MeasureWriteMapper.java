@@ -14,5 +14,6 @@ public interface MeasureWriteMapper {
 
     public int updateMeasureDetail(Measure measure);
 
+    public int deleteMeasureDetailById(Long id);
 
 }

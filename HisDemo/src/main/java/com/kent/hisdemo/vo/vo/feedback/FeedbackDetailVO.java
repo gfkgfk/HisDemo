@@ -15,5 +15,7 @@ public class FeedbackDetailVO implements Serializable {
     String content;
     @ApiModelProperty("反馈填写医生ID")
     Long userId;
+    @ApiModelProperty("反馈填写医生名字")
+    String userName;
 
 }

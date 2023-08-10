@@ -21,7 +21,8 @@
     <select id="getAllMeasureDataByUser" resultMap="resultMap">
         SELECT *
         FROM `console_measure`
-        WHERE user_id = #{id}
+        WHERE is_deleted=0
+        AND user_id = #{id}
     </select>
 
 
@@ -30,13 +31,15 @@
         FROM `console_measure` cm,
              `console_user` cu
         WHERE cm.user_id = cu.id
+        AND cm.is_deleted=0
     </select>
 
 
     <select id="getMeasureDetailById" resultMap="resultMap">
         SELECT *
         FROM `console_measure`
-        WHERE id=#{id}
+        WHERE is_deleted=0
+        AND id=#{id}
     </select>
 
 

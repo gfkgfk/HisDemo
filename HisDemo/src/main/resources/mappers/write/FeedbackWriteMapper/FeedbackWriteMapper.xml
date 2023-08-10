@@ -25,6 +25,13 @@
     </update>
 
 
+
+    <update id="deleteFeedbackById">
+        UPDATE `console_feedback`
+        SET `is_deleted` = 1
+        WHERE `id` = #{id}
+    </update>
+
     <!--操作条件-->
     <sql id="whereCondition">
         <if test="example != null">

@@ -7,6 +7,7 @@ import com.kent.hisdemo.config.annotation.CurrentUser;
 import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
+import com.kent.hisdemo.service.feedback.FeedbackService;
 import com.kent.hisdemo.service.measure.MeasureService;
 import com.kent.hisdemo.vo.param.measure.MeasureParam;
 import com.kent.hisdemo.vo.vo.measure.MeasureDetailVO;
@@ -32,18 +33,21 @@ public class MeasureController {
     @Autowired
     MeasureService measureService;
 
+    @Autowired
+    FeedbackService feedbackService;
+
 
     @RequestMapping(value = "/uploadMeasureData", method = RequestMethod.POST)
-    public JsonResult uploadMeasureData(HttpServletRequest request,MeasureParam param,@CurrentUser User user) {
+    public JsonResult uploadMeasureData(HttpServletRequest request, MeasureParam param, @CurrentUser User user) {
 //        User user = (User) request.getAttribute("user");
-        measureService.uploadMeasureData(param,user.getId());
+        measureService.uploadMeasureData(param, user.getId());
         return SldResponse.success("操作成功");
     }
 
     @RequestMapping(value = "/getMeasureHistory", method = RequestMethod.POST)
     public JsonResult<List<MeasureVO>> getMeasureHistoryData(HttpServletRequest request, MeasureParam param, @CurrentUser User user) {
 //        User user = (User) request.getAttribute("user");
-        List<Measure> list =  measureService.getMeasureHistoryDataByUser(user);
+        List<Measure> list = measureService.getMeasureHistoryDataByUser(user);
         List<MeasureVO> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             MeasureVO measureVO = new MeasureVO();
@@ -57,7 +61,7 @@ public class MeasureController {
 
     @RequestMapping(value = "/getMeasureDetailsList", method = RequestMethod.POST)
     public JsonResult<List<MeasureDetailVO>> getMeasureDetailsList(HttpServletRequest request, MeasureParam param, @CurrentUser User user) {
-        List<MeasureDetailDTO> list =  measureService.getMeasureDetailsList();
+        List<MeasureDetailDTO> list = measureService.getMeasureDetailsList();
         List<MeasureDetailVO> result = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
@@ -70,6 +74,18 @@ public class MeasureController {
             result.add(measureDetailVO);
         }
         return SldResponse.success(result);
+    }
+
+    @RequestMapping(value = "/deleteMeasureDetailById", method = RequestMethod.POST)
+    public JsonResult deleteMeasureDetailById(HttpServletRequest request, Long id, @CurrentUser User user) {
+        Measure measure = measureService.getMeasureDetailById(id);
+        if (null != measure) {
+            measureService.deleteMeasureDetailById(id);
+            if (null != measure.getFeedbackId() && measure.getFeedbackId() > 0) {
+                feedbackService.deleteFeedbackById(measure.getFeedbackId());
+            }
+        }
+        return SldResponse.success("操作成功");
     }
 
 }

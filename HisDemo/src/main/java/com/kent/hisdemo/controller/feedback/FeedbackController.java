@@ -3,6 +3,7 @@ package com.kent.hisdemo.controller.feedback;
 import com.kent.hisdemo.common.response.JsonResult;
 import com.kent.hisdemo.common.response.SldResponse;
 import com.kent.hisdemo.config.annotation.CurrentUser;
+import com.kent.hisdemo.dto.feedback.FeedbackDTO;
 import com.kent.hisdemo.entity.announcement.Announcement;
 import com.kent.hisdemo.entity.feedback.Feedback;
 import com.kent.hisdemo.entity.measure.Measure;
@@ -72,7 +73,15 @@ public class FeedbackController {
 
     @RequestMapping(value = "/getAllFeedBack", method = RequestMethod.POST)
     public JsonResult<List<FeedbackDetailVO>> getAllFeedBack(HttpServletRequest request, @CurrentUser User user) {
+        List<FeedbackDTO> feedbackList = feedbackService.getAllFeedBackIncludeName();
         List<FeedbackDetailVO> list = new ArrayList<>();
+        for (int i = 0; i < feedbackList.size(); i++) {
+            FeedbackDetailVO feedbackDetailVO = new FeedbackDetailVO();
+            feedbackDetailVO.setUserName(feedbackList.get(i).getUserName());
+            feedbackDetailVO.setId(feedbackList.get(i).getId());
+            feedbackDetailVO.setContent(feedbackList.get(i).getContent());
+            list.add(feedbackDetailVO);
+        }
         return SldResponse.success(list);
     }
 

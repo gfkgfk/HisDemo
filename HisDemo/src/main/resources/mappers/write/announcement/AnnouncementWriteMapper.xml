@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kent.hisdemo.dao.write.announcement.AnnouncementWriteMapper">
+
+    <insert id="saveAnnouncement">
+        INSERT INTO `console_announcement` (`title`, `content`, `create_time`)
+        VALUES (#{title}, #{content}, #{createTime});
+    </insert>
+    <update id="deleteAnnouncementById" >
+        UPDATE `console_announcement`
+        SET `is_deleted`= 1
+        WHERE `id`=#{id};
+    </update>
+</mapper>

@@ -18,4 +18,6 @@ public interface MeasureService {
     public Measure getMeasureDetailById(Long id);
 
     public int updateMeasureDetail(Measure measure);
+
+    public int deleteMeasureDetailById(Long id);
 }
