@@ -5,6 +5,7 @@ import com.kent.hisdemo.common.response.JsonResult;
 import com.kent.hisdemo.common.response.SldResponse;
 import com.kent.hisdemo.config.annotation.CurrentUser;
 import com.kent.hisdemo.dto.measure.MeasureDetailDTO;
+import com.kent.hisdemo.entity.feedback.Feedback;
 import com.kent.hisdemo.entity.measure.Measure;
 import com.kent.hisdemo.entity.user.User;
 import com.kent.hisdemo.service.feedback.FeedbackService;
@@ -51,6 +52,8 @@ public class MeasureController {
         List<MeasureVO> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             MeasureVO measureVO = new MeasureVO();
+            Feedback feedback = feedbackService.getFeedbackById(list.get(i).getFeedbackId());
+            measureVO.setFeedback(feedback);
             measureVO.setMeasureValue(list.get(i).getValue());
             measureVO.setDeviceType(list.get(i).getType());
             result.add(measureVO);

@@ -29,8 +29,9 @@
 			<view>
 				<uni-card v-for="(item, index) in hisData" :key="index" :is-shadow="false" is-full>
 					<view>
-						<div class="uni-h6">测量设备:{{item.deviceType==1?'血压计':'未知'}}</div>
-						<div class="uni-h6">测量结果:{{item.measureValue?item.measureValue:'--'}}</div>
+						<div class="uni-h6"><span class="his-measure-font">测量设备:</span>{{item.deviceType==1?'血压计':'未知'}}</div>
+						<div class="uni-h6"><span class="his-measure-font">测量结果:</span>{{item.measureValue?item.measureValue:'--'}}</div>
+						<div v-if="item.feedback" class="uni-h6"><span class="his-measure-font">反馈评估信息:</span>{{item.feedback.content}}</div>
 					</view>
 				</uni-card>
 			</view>
@@ -215,7 +216,9 @@
 		margin-top: 50rpx;
 	}
 
-
+	.his-measure-font{
+		font-weight: 600;
+	}
 	.dialog-manual {
 		display: flex;
 		justify-content: center;
