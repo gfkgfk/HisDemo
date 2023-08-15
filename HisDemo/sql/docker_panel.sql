@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : BANWAGONG_HONKONG_LOCAL
+ Source Server         : 93.179.125.238_3306
  Source Server Type    : MySQL
  Source Server Version : 50650
  Source Host           : 93.179.125.238:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50650
  File Encoding         : 65001
 
- Date: 03/08/2023 10:28:50
+ Date: 15/08/2023 22:41:36
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `console_announcement`  (
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公告内容',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of console_announcement
@@ -36,6 +36,25 @@ INSERT INTO `console_announcement` VALUES (1, '关于省健康信息平台数据
 INSERT INTO `console_announcement` VALUES (2, '大数据医疗智慧健康管理系统平台', '大数据医疗智慧健康管理系统平台通过智能硬件、边缘计算采集数据,平台做健康评估,数据分析,状态预测,异常预报预警,决策维护.', '2023-08-03 10:23:37');
 INSERT INTO `console_announcement` VALUES (3, '医疗数据采集', '实时识别,记录医患问诊内容.向医生进行问诊内容提示,患教知识推荐,用药安全提醒等.可对接电子病历系统上传病历,提升医疗质量,提高临床效率,加速医院的数字化进程.', '2023-08-03 10:24:30');
 INSERT INTO `console_announcement` VALUES (4, '关于定点医疗机构上传数据质量', '准确采集医疗服务数据信息 在采集参保人员医疗服务相关信息时,应按照要求正确分项录入医疗费用及相关信息,特别是准确采集入', '2023-08-03 10:25:08');
+
+-- ----------------------------
+-- Table structure for console_feedback
+-- ----------------------------
+DROP TABLE IF EXISTS `console_feedback`;
+CREATE TABLE `console_feedback`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '反馈内容',
+  `user_id` bigint(255) NOT NULL COMMENT '反馈填写医生ID',
+  `is_deleted` tinyint(255) NOT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of console_feedback
+-- ----------------------------
+INSERT INTO `console_feedback` VALUES (1, '测试', 1, 0);
+INSERT INTO `console_feedback` VALUES (2, '测试2', 1, 0);
+INSERT INTO `console_feedback` VALUES (3, '测试3', 1, 0);
 
 -- ----------------------------
 -- Table structure for console_measure
@@ -47,15 +66,17 @@ CREATE TABLE `console_measure`  (
   `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '测量值',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   `user_id` bigint(20) NOT NULL COMMENT '被测量人用户id',
+  `feedback_id` bigint(20) NOT NULL COMMENT '反馈信息ID',
+  `is_deleted` tinyint(255) NOT NULL COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of console_measure
 -- ----------------------------
-INSERT INTO `console_measure` VALUES (1, '1', '100/86', '2023-08-03 09:14:25', 1);
-INSERT INTO `console_measure` VALUES (2, '1', '91/89', '2023-08-03 10:27:57', 1);
-INSERT INTO `console_measure` VALUES (3, '1', '97/86', '2023-08-03 10:28:22', 1);
+INSERT INTO `console_measure` VALUES (1, '1', '100/86', '2023-08-03 09:14:25', 1, 1, 0);
+INSERT INTO `console_measure` VALUES (2, '1', '91/89', '2023-08-03 10:27:57', 1, 2, 0);
+INSERT INTO `console_measure` VALUES (3, '1', '97/86', '2023-08-03 10:28:22', 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for console_menu
@@ -128,6 +149,6 @@ CREATE TABLE `console_user_token`  (
 -- ----------------------------
 -- Records of console_user_token
 -- ----------------------------
-INSERT INTO `console_user_token` VALUES (1, '5a4ba2bfabaf34791477e2c9bc9b92fa', '2023-08-03 09:13:28', '2023-08-05 09:13:28');
+INSERT INTO `console_user_token` VALUES (1, '3edf4d3711685495598d285956c75f9-', '2023-08-15 22:33:34', '2023-08-17 22:33:34');
 
 SET FOREIGN_KEY_CHECKS = 1;
