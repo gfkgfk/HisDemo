@@ -21,4 +21,6 @@ public class Measure implements Serializable {
     private Long userId;
     @ApiModelProperty("反馈信息ID")
     private Long feedbackId;
+    @ApiModelProperty("反馈信息ID")
+    private boolean isDeleted;
 }

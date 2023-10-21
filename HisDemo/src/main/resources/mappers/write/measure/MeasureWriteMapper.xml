@@ -4,8 +4,8 @@
 
 
     <insert id="addMeasureData">
-        INSERT INTO `console_measure` (`type`, `value`, `create_time`, `user_id`)
-        VALUES (#{type}, #{value}, #{createTime}, #{userId});
+        INSERT INTO `console_measure` (`type`, `value`, `create_time`, `user_id`,`feedback_id`,`is_deleted`)
+        VALUES (#{type}, #{value}, #{createTime}, #{userId},#{feedbackId},#{isDeleted});
     </insert>
 
     <update id="updateMeasureFeedBack">

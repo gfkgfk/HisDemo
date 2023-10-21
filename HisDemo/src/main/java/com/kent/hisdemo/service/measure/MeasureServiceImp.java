@@ -35,6 +35,7 @@ public class MeasureServiceImp implements MeasureService {
         measure.setValue(measureParam.getMeasureValue());
         measure.setUserId(userId);
         measure.setCreateTime(new Date());
+        measure.setFeedbackId(-1L);
         return measureWriteMapper.addMeasureData(measure);
     }
 
